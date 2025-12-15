@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KPRCAS Login</title>
+    <style>
+        body {
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            width: 350px;
+            margin: 8% auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-login:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>KPRCAS Login</h2>
+
+    <input type="text" id="username" class="input-field" placeholder="Username" />
+    <input type="password" id="password" class="input-field" placeholder="Password" />
+
+    <button class="btn-login" onclick="tryLogin()">Login</button>
+
+    <div id="errorMsg" class="error"></div>
+</div>
+
+<script>
+function tryLogin() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorDiv = document.getElementById("errorMsg");
+
+    if (!username || !password) {
+        errorDiv.textContent = "Please enter both username and password.";
+        return;
+    }
+
+    // TODO: Replace with real server-side authentication
+    if (username === "admin" && password === "admin123") {
+        alert("Login successful!");
+        // Redirect after login
+        window.location.href = "/dashboard";
+    } else {
+        errorDiv.textContent = "Invalid credentials. Try again!";
+    }
+}
+</script>
+
+</body>
+</html>
