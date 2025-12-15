@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KPRCAS Login</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;          /* slate-900 */
+      --panel: #111827;       /* gray-900 */
+      --text: #e5e7eb;        /* gray-200 */
+      --muted: #9ca3af;       /* gray-400 */
+      --accent: #16a34a;      /* green-600 */
+      --accent-700: #15803d;  /* green-700 */
+      --border: #1f2937;      /* gray-800 */
+      --error: #ef4444;       /* red-500 */
+      --focus: #22c55e;       /* green-500 */
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, #0b1225 0%, var(--bg) 50%, #0a1020 100%);
+      color: var(--text);
+    }
+
+    .container {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, rgba(17,24,39,0.65) 0%, rgba(17,24,39,0.85) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      backdrop-filter: saturate(160%) blur(8px);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 28px 28px 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(600px 220px at -10% -60%, rgba(34,197,94,0.12) 0%, transparent 60%),
+        radial-gradient(500px 220px at 110% -60%, rgba(34,197,94,0.12) 0%, transparent 60%);
+    }
+
+    .logo-wrap {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #0b1528;
+      border: 1px solid #12325a;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 6px 20px rgba(0,0,0,0.35);
+    }
+
+    /* Replace the placeholder image src with your official KPRCAS logo path */
+    .logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .title {
+      display: grid;
+      gap: 2px;
+    }
+
+    .title .name {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .title .sub {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.2px;
+    }
+
+    .body {
+      padding: 20px 28px 24px 28px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .fieldset {
+      display: grid;
+      gap: 14px;
+    }
+
+    .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1222;
+      color: var(--text);
+      outline: none;
+      transition: border-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    .input::placeholder { color: #6b7280; }
+
+    .input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .checkbox {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .link {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .link:hover { text-decoration: underline; }
+
+    .btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 12px 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-700) 100%);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(22,163,74,0.35);
+      transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn:active { transform: translateY(0); filter: brightness(0.98); }
+
+    .footer {
+      padding: 16px 28px 24px 28px;
+      display: grid;
+      gap: 8px;
+      border-top: 1px solid var(--border);
+      background:
+        radial-gradient(600px 220px at -10% 160%, rgba(34,197,94,0.12) 0%, transparent 60%),
+        radial-gradient(500px 220px at 110% 160%, rgba(34,197,94,0.12) 0%, transparent 60%);
+    }
+
+    .alt {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .alt .ghost {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1222;
+      color: var(--text);
+      font-size: 13px;
+      text-decoration: none;
+      transition: border-color 120ms ease;
+    }
+    .alt .ghost:hover { border-color: #334155; }
+
+    .note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Small screens */
+    @media (max-width: 420px) {
+      .header { padding: 22px 20px 14px; }
+      .body, .footer { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card" role="region" aria-labelledby="kprcas-login-title">
+      <header class="header">
+        <div class="logo-wrap" aria-hidden="true">
+          <!-- Replace src with your KPRCAS logo file path (e.g., /assets/kprcas-logo.png) -->
+          <img class="logo" src="/assets/kprcas-logo.png" alt="KPRCAS logo">
+        </div>
+        <div class="title">
+          <div id="kprcas-login-title" class="name">KPRCAS</div>
+          <div class="sub">Campus Portal Login</div>
+        </div>
+      </header>
+
+      <form class="body" action="/login" method="post" novalidate>
+        <div class="fieldset">
+          <label class="label" for="username">Username</label>
+          <input
+            class="input"
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Enter your username"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="fieldset">
+          <label class="label" for="password">Password</label>
+          <input
+            class="input"
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div class="row">
+          <label class="checkbox" for="remember">
+            <input id="remember" name="remember" type="checkbox">
+            Remember me
+          </label>
+          <a class="link" href="/forgot">Forgot password?</a>
+        </div>
+
+        <button class="btn" type="submit">Sign in</button>
+      </form>
+
+      <div class="footer">
+        <div class="alt" aria-label="Alternative sign in options">
+          <a class="ghost" href="/signin/google" aria-label="Sign in with Google">Google</a>
+          <a class="ghost" href="/signin/microsoft" aria-label="Sign in with Microsoft">Microsoft</a>
+        </div>
+        <div class="note">By signing in, you agree to the portal’s terms and policies.</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
